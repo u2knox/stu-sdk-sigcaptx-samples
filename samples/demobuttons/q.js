@@ -188,7 +188,7 @@ var nextTick =(function () {
         // * Mocha test runner - exposes a `process` global without a `nextTick`
         // * Browserify - exposes a `process.nexTick` function that uses
         //   `setTimeout`. In this case `setImmediate` is preferred because
-        //    it is faster. Browserify's `process.toString()` yields
+        //    it is faster. Browserify s `process.toString()` yields
         //   "[object Object]", while in a real Node environment
         //   `process.nextTick()` yields "[object process]".
         isNodeJS = true;
@@ -581,18 +581,18 @@ function defer() {
         try {
             throw new Error();
         } catch (e) {
-            // NOTE: don't try to use `Error.captureStackTrace` or transfer the
+            // NOTE: don t try to use `Error.captureStackTrace` or transfer the
             // accessor around; that causes memory leaks as per GH-111. Just
             // reify the stack trace as a string ASAP.
             //
-            // At the same time, cut off the first line; it's always just
+            // At the same time, cut off the first line; it s always just
             // "[object Promise]\n", as per the `toString`.
             promise.stack = e.stack.substring(e.stack.indexOf("\n") + 1);
         }
     }
 
     // NOTE: we do the checks for `resolvedPromise` in each method, instead of
-    // consolidating them into `become`, since otherwise we'd create new
+    // consolidating them into `become`, since otherwise we d create new
     // promises with the lines `become(whatever(value))`. See e.g. GH-252.
 
     function become(newPromise) {
@@ -725,7 +725,7 @@ Promise.prototype.join = function (that) {
             // TODO: "===" should be Object.is or equiv
             return x;
         } else {
-            throw new Error("Q can't join: not the same: " + x + " " + y);
+            throw new Error("Q can t join: not the same: " + x + " " + y);
         }
     });
 };
@@ -1094,7 +1094,7 @@ function untrackRejection(promise) {
 Q.resetUnhandledRejections = resetUnhandledRejections;
 
 Q.getUnhandledReasons = function () {
-    // Make a copy so that consumers can't interfere with our internal state.
+    // Make a copy so that consumers can t interfere with our internal state.
     return unhandledReasons.slice();
 };
 
@@ -1266,8 +1266,8 @@ function async(makeGenerator) {
 
             // Until V8 3.19 / Chromium 29 is released, SpiderMonkey is the only
             // engine that has a deployed base of browsers that support generators.
-            // However, SM's generators use the Python-inspired semantics of
-            // outdated ES6 drafts.  We would like to support ES6, but we'd also
+            // However, SM s generators use the Python-inspired semantics of
+            // outdated ES6 drafts.  We would like to support ES6, but we d also
             // like to make it possible to use generators in deployed browsers, so
             // we also support Python-style generators.  At some point we can remove
             // this block.
@@ -1310,7 +1310,7 @@ function async(makeGenerator) {
  * The spawn function is a small wrapper around async that immediately
  * calls the generator and also ends the promise chain, so that any
  * unhandled errors are thrown instead of forwarded to the error
- * handler. This is useful because it's extremely common to run
+ * handler. This is useful because it s extremely common to run
  * generators at the top-level to work with libraries.
  */
 Q.spawn = spawn;
@@ -1468,13 +1468,13 @@ Promise.prototype.post = function (name, args) {
  * @param ...args   array of invocation arguments
  * @return promise for the return value
  */
-Q.send = // XXX Mark Miller's proposed parlance
+Q.send = // XXX Mark Miller s proposed parlance
 Q.mcall = // XXX As proposed by "Redsandro"
 Q.invoke = function (object, name /*...args*/) {
     return Q(object).dispatch("post", [name, array_slice(arguments, 2)]);
 };
 
-Promise.prototype.send = // XXX Mark Miller's proposed parlance
+Promise.prototype.send = // XXX Mark Miller s proposed parlance
 Promise.prototype.mcall = // XXX As proposed by "Redsandro"
 Promise.prototype.invoke = function (name /*...args*/) {
     return this.dispatch("post", [name, array_slice(arguments, 1)]);
@@ -1626,7 +1626,7 @@ function any(promises) {
             pendingCount--;
             if (pendingCount === 0) {
                 deferred.reject(new Error(
-                    "Q can't get fulfillment value from any promise, all " +
+                    "Q can t get fulfillment value from any promise, all " +
                     "promises were rejected."
                 ));
             }
@@ -1719,7 +1719,7 @@ Promise.prototype["catch"] = function (rejected) {
 
 /**
  * Attaches a listener that can respond to progress notifications from a
- * promise's originating deferred. This listener receives the exact arguments
+ * promise s originating deferred. This listener receives the exact arguments
  * passed to ``deferred.notify``.
  * @param {Any*} promise for something
  * @param {Function} callback to receive any progress notifications
@@ -1753,7 +1753,7 @@ Q["finally"] = function (object, callback) {
 Promise.prototype.fin = // XXX legacy
 Promise.prototype["finally"] = function (callback) {
     if (!callback || typeof callback.apply !== "function") {
-        throw new Error("Q can't apply finally callback");
+        throw new Error("Q can t apply finally callback");
     }
     callback = Q(callback);
     return this.then(function (value) {
@@ -1919,7 +1919,7 @@ Promise.prototype.nfcall = function (/*...args*/) {
 Q.nfbind =
 Q.denodeify = function (callback /*...args*/) {
     if (callback === undefined) {
-        throw new Error("Q can't wrap an undefined function");
+        throw new Error("Q can t wrap an undefined function");
     }
     var baseArgs = array_slice(arguments, 1);
     return function () {
@@ -1991,8 +1991,8 @@ Promise.prototype.npost = function (name, args) {
  * be provided by Q and appended to these arguments.
  * @returns a promise for the value or error
  */
-Q.nsend = // XXX Based on Mark Miller's proposed "send"
-Q.nmcall = // XXX Based on "Redsandro's" proposal
+Q.nsend = // XXX Based on Mark Miller s proposed "send"
+Q.nmcall = // XXX Based on "Redsandro s" proposal
 Q.ninvoke = function (object, name /*...args*/) {
     var nodeArgs = array_slice(arguments, 2);
     var deferred = defer();
@@ -2001,8 +2001,8 @@ Q.ninvoke = function (object, name /*...args*/) {
     return deferred.promise;
 };
 
-Promise.prototype.nsend = // XXX Based on Mark Miller's proposed "send"
-Promise.prototype.nmcall = // XXX Based on "Redsandro's" proposal
+Promise.prototype.nsend = // XXX Based on Mark Miller s proposed "send"
+Promise.prototype.nmcall = // XXX Based on "Redsandro s" proposal
 Promise.prototype.ninvoke = function (name /*...args*/) {
     var nodeArgs = array_slice(arguments, 1);
     var deferred = defer();

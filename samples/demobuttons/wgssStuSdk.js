@@ -31,7 +31,7 @@ WacomGSS.STUConstructor = (function() {
   var table = {};
   var stream = {};
   function checkExists(obj) {
-    return 'undefined' !== typeof obj;
+    return "undefined" !== typeof obj;
   }
   
   function getTicket() {
@@ -110,7 +110,7 @@ WacomGSS.STUConstructor = (function() {
   }
 
   function receive(message) {
-    if (typeof message.data !== 'undefined' && message.data != "") {
+    if (typeof message.data !== "undefined" && message.data != "") {
       //console.log("receive: " + message.data);
       var arg = JSON.parse(message.data);
       if (checkExists(arg.ticket) && checkExists(table[arg.ticket])) {
@@ -332,7 +332,7 @@ WacomGSS.STUConstructor = (function() {
              ({
                "scope": scope, 
                "id": id, 
-               "function": "get_", // the '_' is deliberate
+               "function": "get_", // the "_" is deliberate
                "length": length
              });
     }
@@ -512,7 +512,7 @@ WacomGSS.STUConstructor = (function() {
       StatusCode_Calculation    : 0x03, // %Tablet is calculating encryption keys.        
       StatusCode_Image_Boot     : 0x04, // %Tablet is displaying the boot image. The tablet will automatically change to Ready when finished.
       StatusCode_RomBusy        : 0x05, // %Tablet is accessing the ROM.
-      StatusCode_SystemReset    : 0xff  // %Tablet is resetting. So, any function isn't available.
+      StatusCode_SystemReset    : 0xff  // %Tablet is resetting. So, any function isn"t available.
     }
  
     Protocol.prototype.ErrorCode = 
@@ -873,7 +873,7 @@ WacomGSS.STUConstructor = (function() {
       // encodingMode Protocol.EncodingMode (must be 24-bit)
       // imageType    false=not pushed; true=pushed 
       // imageNumber  1..3
-      // padType      1 = numbers only; 2 = include '*' & '#' keys; 3 =  include '.' & '00' keys
+      // padType      1 = numbers only; 2 = include "*" & "#" keys; 3 =  include "." & "00" keys
       // keyLayout    1..5
       function RomStartImageData_PinPad(encodingMode, imageType, imageNumber, padType, keyLayout) {
         this.encodingMode = encodingMode;
@@ -1924,8 +1924,8 @@ WacomGSS.STUConstructor = (function() {
     // retries is an Integer
     // sleepBetweenRetries is an Integer (milliseconds)
     writeImage : function(protocol, encodingMode, imageData, retries, sleepBetweenRetries) {
-      retries = (typeof retries === 'undefined')? 25 : retries;
-      sleepBetweenRetries = (typeof sleepBetweenRetries === 'undefined')? 25 : sleepBetweenRetries;
+      retries = (typeof retries === "undefined")? 25 : retries;
+      sleepBetweenRetries = (typeof sleepBetweenRetries === "undefined")? 25 : sleepBetweenRetries;
       var opDirection = WacomGSS.STU.ProtocolHelper.OpDirection.OpDirection_Set;
       return WacomGSS.STU.ProtocolHelper.waitForStatusToSend(protocol, WacomGSS.STU.Protocol.ReportId.ReportId_StartImageData, opDirection, retries, sleepBetweenRetries)
              .then( function(message){
@@ -1976,7 +1976,7 @@ WacomGSS.STUConstructor = (function() {
                "dataStore": (true === dataStore? true : false)
              })
              .then( function(message) {
-               if('string' === typeof message) {
+               if("string" === typeof message) {
                  return message;
                }
                var dataStore = new WacomGSS.STU.DataStore();
@@ -2037,7 +2037,7 @@ WacomGSS.STUConstructor = (function() {
                 "dataStore": (true === dataStore? true : false)
               })
               .then( function(message) {
-                if('string' === typeof message) {
+                if("string" === typeof message) {
                   return message;
                 }
                 var dataStore = new WacomGSS.STU.DataStore();
@@ -2069,7 +2069,7 @@ WacomGSS.STUConstructor = (function() {
               "dataStore": (true === dataStore? true : false)
             })
             .then( function(message) {
-              if('string' === typeof message) {
+              if("string" === typeof message) {
                 return message;
               }
               var dataStore = new WacomGSS.STU.DataStore();
@@ -2092,7 +2092,7 @@ WacomGSS.STUConstructor = (function() {
               "dataStore": (true === dataStore? true : false)
             })
             .then( function(message) {
-              if('string' === typeof message) {
+              if("string" === typeof message) {
                 return message;
               }
               var dataStore = new WacomGSS.STU.DataStore();
@@ -2139,7 +2139,7 @@ WacomGSS.STUConstructor = (function() {
                "scope": "WacomGSS.STU.ProtocolHelper",
                "function": "simulateEncodingFlag",
                "idProduct": idProduct,
-               "encodingFlag": ('undefined' === typeof obj? 0 : encodingFlag)
+               "encodingFlag": ("undefined" === typeof obj? 0 : encodingFlag)
              })
     },
     // protocol type is WacomGSS.STU.Procotol
@@ -2149,8 +2149,8 @@ WacomGSS.STUConstructor = (function() {
     // retries is an Integer
     // sleepBetweenRetries is an Integer (milliseconds)
     writeImageArea : function(protocol, encodingMode, area, imageData, retries, sleepBetweenRetries) {
-      retries = (typeof retries === 'undefined')? 25 : retries;
-      sleepBetweenRetries = (typeof sleepBetweenRetries === 'undefined')? 25 : sleepBetweenRetries;
+      retries = (typeof retries === "undefined")? 25 : retries;
+      sleepBetweenRetries = (typeof sleepBetweenRetries === "undefined")? 25 : sleepBetweenRetries;
       var opDirection = WacomGSS.STU.ProtocolHelper.OpDirection.OpDirection_Set;
       return WacomGSS.STU.ProtocolHelper.waitForStatusToSend(protocol, 
                                                              WacomGSS.STU.Protocol.ReportId.ReportId_StartImageDataArea, 
@@ -2208,10 +2208,10 @@ WacomGSS.STUConstructor = (function() {
              ({
                "scope": scope, 
                "function": "Constructor", 
-               "hasIntf": ('undefined' !== typeof intf),
-               "intf": ('undefined' === typeof intf)? null : intf.toJSON(),
-               "encryptionHandler": ('undefined' === typeof encryptionHandler || null === encryptionHandler)? null : encryptionHandler.toJSON(),
-               "encryptionHandler2": ('undefined' === typeof encryptionHandler2 || null === encryptionHandler2)? null : encryptionHandler2.toJSON()
+               "hasIntf": ("undefined" !== typeof intf),
+               "intf": ("undefined" === typeof intf)? null : intf.toJSON(),
+               "encryptionHandler": ("undefined" === typeof encryptionHandler || null === encryptionHandler)? null : encryptionHandler.toJSON(),
+               "encryptionHandler2": ("undefined" === typeof encryptionHandler2 || null === encryptionHandler2)? null : encryptionHandler2.toJSON()
              })
              .then( function(message) {
                id = message.id;
@@ -2225,7 +2225,7 @@ WacomGSS.STUConstructor = (function() {
                "scope": scope, 
                "id": id, 
                "function": "attach",
-               "intf": ('undefined' === typeof intf)? null : intf.toJSON()
+               "intf": ("undefined" === typeof intf)? null : intf.toJSON()
              });
     }
  
@@ -2563,7 +2563,7 @@ WacomGSS.STUConstructor = (function() {
     // b64data type is a base64-encoded image string, or a DataStore reference to it
     Tablet.prototype.writeImage = function(encodingMode, b64Data) {
       var data = null;
-      if ('string' === typeof b64Data) {
+      if ("string" === typeof b64Data) {
         data = b64Data;
       } else {
         data = b64Data.toJSON();
@@ -2582,7 +2582,7 @@ WacomGSS.STUConstructor = (function() {
     // b64data type is a base64-encoded image string, or a DataStore reference to it
     Tablet.prototype.writeImageArea = function(encodingMode, area, b64Data) {
       var data = null;
-      if ('string' === typeof b64Data) {
+      if ("string" === typeof b64Data) {
         data = b64Data;
       } else {
         data = b64Data.toJSON();
@@ -3006,7 +3006,7 @@ WacomGSS.STUConstructor = (function() {
           ({
             "scope": scope, 
             "id": id, 
-            "function": "get_", // the '_' is deliberate
+            "function": "get_", // the "_" is deliberate
             "length": length
           });
     }
@@ -3128,7 +3128,7 @@ WacomGSS.STUConstructor = (function() {
           ({
             "scope": scope,
             "id": id,
-            "function": "get_", // the '_' is deliberate
+            "function": "get_", // the "_" is deliberate
             "length": length
           });
     }
