@@ -134,10 +134,13 @@
       }
 
       function createModalWindow(width, height) {
+        document.querySelector("body").style.position = "relative";
+
         //  Creates the modal window on the PC monitor
         modalBackground = document.createElement("div");
         modalBackground.id = "modal-background";
         modalBackground.className = "active";
+        modalBackground.style.position = "absolute";
         modalBackground.style.width = window.innerWidth;
         modalBackground.style.height = window.innerHeight;
         document.getElementsByTagName("body")[0].appendChild(modalBackground);
@@ -145,6 +148,7 @@
         formDiv = document.createElement("div");
         formDiv.id = "signatureWindow";
         formDiv.className = "active";
+        formDiv.style.position = "absolute";
         formDiv.style.top = window.innerHeight / 2 - height / 2 + "px";
         formDiv.style.left = window.innerWidth / 2 - width / 2 + "px";
         formDiv.style.width = width + "px";
