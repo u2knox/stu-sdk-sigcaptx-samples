@@ -308,21 +308,21 @@ function tabletDemo() {
         return m_encodingMode;
       }
     })
-    .then(function (message) {
-      return new Promise(function (resolve, reject) {
-        const img = new Image();
-        img.addEventListener(
-          "load",
-          () => {
-            clearCanvas(canvas, ctx);
-            ctx.drawImage(img, 0, 0, formDiv.offsetWidth, formDiv.offsetHeight);
-            resolve();
-          },
-          false
-        );
-        img.src = "image_2023_06_26T11_34_11_431Z.png";
-      });
-    })
+    // .then(function (message) {
+    //   return new Promise(function (resolve, reject) {
+    //     const img = new Image();
+    //     img.addEventListener(
+    //       "load",
+    //       () => {
+    //         clearCanvas(canvas, ctx);
+    //         ctx.drawImage(img, 0, 0, formDiv.offsetWidth, formDiv.offsetHeight);
+    //         resolve();
+    //       },
+    //       false
+    //     );
+    //     img.src = "image_2023_06_26T11_34_11_431Z.png";
+    //   });
+    // })
     .then(function (message) {
       console.log("received: " + JSON.stringify(message));
       addButtons();
@@ -598,11 +598,10 @@ function processPoint(point, in_canvas, in_ctx) {
 }
 
 function generateImage() {
-  signatureImage = document.getElementById("signatureImage");
   var signatureCanvas = document.createElement("canvas");
   signatureCanvas.id = "signatureCanvas";
-  signatureCanvas.height = signatureImage.height;
-  signatureCanvas.width = signatureImage.width;
+  signatureCanvas.height = 200;
+  signatureCanvas.width = 300;
   var signatureCtx = signatureCanvas.getContext("2d");
 
   clearCanvas(signatureCanvas, signatureCtx);
@@ -614,7 +613,6 @@ function generateImage() {
   for (var i = 0; i < m_penData.length; i++) {
     processPoint(m_penData[i], signatureCanvas, signatureCtx);
   }
-  signatureImage.src = signatureCanvas.toDataURL("image/jpeg");
 }
 
 function close() {
