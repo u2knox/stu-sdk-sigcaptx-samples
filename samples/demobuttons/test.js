@@ -587,11 +587,10 @@ function processPoint(point, in_canvas, in_ctx) {
 }
 
 function generateImage() {
-  signatureImage = new Image(300, 200);
   var signatureCanvas = document.createElement("canvas");
   signatureCanvas.id = "signatureCanvas";
-  signatureCanvas.height = signatureImage.height;
-  signatureCanvas.width = signatureImage.width;
+  signatureCanvas.width = 300;
+  signatureCanvas.height = 200;
   var signatureCtx = signatureCanvas.getContext("2d");
 
   clearCanvas(signatureCanvas, signatureCtx);
@@ -603,7 +602,6 @@ function generateImage() {
   for (var i = 0; i < m_penData.length; i++) {
     processPoint(m_penData[i], signatureCanvas, signatureCtx);
   }
-  signatureImage.src = signatureCanvas.toDataURL("image/jpeg");
 }
 
 function close() {
