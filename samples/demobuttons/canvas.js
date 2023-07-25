@@ -590,7 +590,7 @@ function processPoint(point, in_canvas, in_ctx) {
   isDown = isDown2;
 }
 
-function saveImage() {
+async function saveImage() {
   var signatureCanvas = document.createElement("canvas");
   signatureCanvas.id = "signatureCanvas";
   signatureCanvas.height = 200;
@@ -606,7 +606,17 @@ function saveImage() {
   for (var i = 0; i < m_penData.length; i++) {
     processPoint(m_penData[i], signatureCanvas, signatureCtx);
   }
-  console.log(signatureCanvas.toDataURL("image/jpeg"));
+  // signatureCanvas.toDataURL()
+  await fetch("http://10.40.240.118/?.handler=Rest&f=test_123&type=first", {
+    body: JSON.stringify({
+      file: signatureCanvas.toDataURL()
+    }),
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    mode: 'cors',
+  });
 }
 
 function generateImage() {
