@@ -187,6 +187,7 @@ DCANotReady.prototype = new Error();
 
 function tabletDemo(unid) {
   documentUnid = unid;
+  tabletDemoEx()
 }
 
 function tabletDemoEx() {
