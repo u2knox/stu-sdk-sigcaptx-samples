@@ -87,25 +87,25 @@ function Point(x, y) {
 
 function createModalWindow(width, height) {
   const bodyTag = document.getElementsByTagName("body")[0];
-  bodyTag.style.position = "relative"
 
   //  Creates the modal window on the PC monitor
   modalBackground = document.createElement("div");
   modalBackground.id = "modal-background";
   modalBackground.className = "active";
-  modalBackground.style.position = "absolute";
   modalBackground.style.width = window.innerWidth;
   modalBackground.style.height = window.innerHeight;
+  modalBackground.style.top = 0;
+  modalBackground.style.position = "absolute";
   bodyTag.appendChild(modalBackground);
 
   formDiv = document.createElement("div");
   formDiv.id = "signatureWindow";
   formDiv.className = "active";
-  formDiv.style.position = "absolute";
   formDiv.style.top = window.innerHeight / 2 - height / 2 + "px";
   formDiv.style.left = window.innerWidth / 2 - width / 2 + "px";
   formDiv.style.width = width + "px";
   formDiv.style.height = height + "px";
+  formDiv.style.position = "absolute";
   bodyTag.appendChild(formDiv);
 
   canvas = document.createElement("canvas");
