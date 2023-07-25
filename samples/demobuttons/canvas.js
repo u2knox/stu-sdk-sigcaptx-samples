@@ -24,6 +24,8 @@ var protocol;
 var retry = 0;
 var tablet;
 
+var documentUnid = '';
+
 function checkForSigCaptX() {
   // Establishing a connection to SigCaptX Web Service can take a few seconds,
   // particularly if the browser itself is still loading/initialising
@@ -183,12 +185,14 @@ window.addEventListener("beforeunload", function (e) {
 function DCANotReady() {}
 DCANotReady.prototype = new Error();
 
-function tabletDemo() {
+function tabletDemo(unid) {
   var p = new WacomGSS.STU.Protocol();
   var intf;
   var m_encH;
   var m_encH2;
   var m_encH2Impl;
+
+  documentUnid = unid;
 
   WacomGSS.STU.isDCAReady()
     .then(function (message) {
@@ -607,9 +611,9 @@ async function saveImage() {
     processPoint(m_penData[i], signatureCanvas, signatureCtx);
   }
   // signatureCanvas.toDataURL()
-  await fetch("http://10.40.240.118/?.handler=Rest&f=test_123&type=first", {
+  await fetch(`http://10.40.240.118/?.handler=Rest&f=test_123&type=first&unid${documentUnid}`, {
     body: JSON.stringify({
-      file: signatureCanvas.toDataURL()
+      file: signatureCanvas.toDataURL(),
     }),
     method: "POST",
     headers: {
