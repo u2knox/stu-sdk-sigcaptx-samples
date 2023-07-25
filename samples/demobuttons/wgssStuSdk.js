@@ -3429,7 +3429,7 @@ WacomGSS.STUConstructor = (function() {
         try {
           details[message.function](message);
         } catch (error) {
-          throw new Error("EncryptionHandler." + message.function + " : " + error + "\nmessage was:\n" + JSON.stringify(message));
+          throw new Error("EncryptionHandler." + message.function + " : " + error + " message was: " + JSON.stringify(message));
         }
       }
     }
@@ -3547,7 +3547,7 @@ WacomGSS.STUConstructor = (function() {
         try {
           details[message.function](message);
         } catch (error) {
-          throw new Error("EncryptionHandler2." + message.function + " : " + error + "\nmessage was:\n" + JSON.stringify(message));
+          throw new Error("EncryptionHandler2." + message.function + " : " + error + " message was: " + JSON.stringify(message));
         }
       }
     }

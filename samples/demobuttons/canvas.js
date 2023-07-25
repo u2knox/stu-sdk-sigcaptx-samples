@@ -86,22 +86,27 @@ function Point(x, y) {
 }
 
 function createModalWindow(width, height) {
+  const bodyTag = document.getElementsByTagName("body")[0];
+  bodyTag.position = "relative"
+
   //  Creates the modal window on the PC monitor
   modalBackground = document.createElement("div");
   modalBackground.id = "modal-background";
   modalBackground.className = "active";
+  modalBackground.position = "absolute";
   modalBackground.style.width = window.innerWidth;
   modalBackground.style.height = window.innerHeight;
-  document.getElementsByTagName("body")[0].appendChild(modalBackground);
+  bodyTag.appendChild(modalBackground);
 
   formDiv = document.createElement("div");
   formDiv.id = "signatureWindow";
   formDiv.className = "active";
+  formDiv.position = "absolute";
   formDiv.style.top = window.innerHeight / 2 - height / 2 + "px";
   formDiv.style.left = window.innerWidth / 2 - width / 2 + "px";
   formDiv.style.width = width + "px";
   formDiv.style.height = height + "px";
-  document.getElementsByTagName("body")[0].appendChild(formDiv);
+  bodyTag.appendChild(formDiv);
 
   canvas = document.createElement("canvas");
   canvas.id = "myCanvas";
@@ -387,7 +392,7 @@ function tabletDemo() {
         setTimeout(tabletDemo, TIMEOUT_LONG);
       } else {
         // Some other error - Inform the user and closedown
-        alert("tabletDemo failed:\n" + ex);
+        alert("tabletDemo failed: " + ex);
         setTimeout(close(), 0);
       }
     });

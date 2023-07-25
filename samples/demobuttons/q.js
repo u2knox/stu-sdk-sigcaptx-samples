@@ -388,13 +388,13 @@ function makeStackTraceLong(error, promise) {
         }
         stacks.unshift(error.stack);
 
-        var concatedStacks = stacks.join("\n" + STACK_JUMP_SEPARATOR + "\n");
+        var concatedStacks = stacks.join("|" + STACK_JUMP_SEPARATOR + "|");
         error.stack = filterStackString(concatedStacks);
     }
 }
 
 function filterStackString(stackString) {
-    var lines = stackString.split("\n");
+    var lines = stackString.split("|");
     var desiredLines = [];
     for (var i = 0; i < lines.length; ++i) {
         var line = lines[i];
@@ -403,7 +403,7 @@ function filterStackString(stackString) {
             desiredLines.push(line);
         }
     }
-    return desiredLines.join("\n");
+    return desiredLines.join("|");
 }
 
 function isNodeFrame(stackLine) {
@@ -457,7 +457,7 @@ function captureLine() {
     try {
         throw new Error();
     } catch (e) {
-        var lines = e.stack.split("\n");
+        var lines = e.stack.split("|");
         var firstLine = lines[0].indexOf("@") > 0 ? lines[1] : lines[2];
         var fileNameAndLineNumber = getFileNameAndLineNumber(firstLine);
         if (!fileNameAndLineNumber) {
@@ -586,8 +586,8 @@ function defer() {
             // reify the stack trace as a string ASAP.
             //
             // At the same time, cut off the first line; it s always just
-            // "[object Promise]\n", as per the `toString`.
-            promise.stack = e.stack.substring(e.stack.indexOf("\n") + 1);
+            // "[object Promise]", as per the `toString`.
+            promise.stack = e.stack.substring(e.stack.indexOf("|") + 1);
         }
     }
 
