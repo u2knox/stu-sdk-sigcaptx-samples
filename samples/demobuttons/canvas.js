@@ -1,6 +1,6 @@
-var BTN_TEXT_CANCEL = "Cancel";
-var BTN_TEXT_CLEAR = "Clear";
-var BTN_TEXT_OK = "OK";
+var BTN_TEXT_CANCEL = "Закрыть";
+var BTN_TEXT_CLEAR = "Очистить";
+var BTN_TEXT_OK = "Отправить";
 var MAXRETRIES = 20;
 var TIMEOUT_LONG = 1000;
 var TIMEOUT_SHORT = 500;
@@ -92,10 +92,11 @@ function createModalWindow(width, height) {
   modalBackground = document.createElement("div");
   modalBackground.id = "modal-background";
   modalBackground.className = "active";
-  modalBackground.style.width = window.innerWidth;
-  modalBackground.style.height = window.innerHeight;
   modalBackground.style.top = 0;
   modalBackground.style.position = "absolute";
+  modalBackground.style.background = "rgba(0, 0, 0, 0.6)";
+  modalBackground.style.width = "100%";
+  modalBackground.style.height = "100%";
   bodyTag.appendChild(modalBackground);
 
   formDiv = document.createElement("div");
@@ -106,6 +107,7 @@ function createModalWindow(width, height) {
   formDiv.style.width = width + "px";
   formDiv.style.height = height + "px";
   formDiv.style.position = "absolute";
+  formDiv.style.background = "#fff";
   bodyTag.appendChild(formDiv);
 
   canvas = document.createElement("canvas");
@@ -498,7 +500,8 @@ function clearScreen() {
 
 function btnOk_Click() {
   // You probably want to add additional processing here.
-  generateImage();
+  // generateImage();
+  saveImage();
   setTimeout(close, 0);
 }
 
@@ -585,6 +588,25 @@ function processPoint(point, in_canvas, in_ctx) {
   }
 
   isDown = isDown2;
+}
+
+function saveImage() {
+  var signatureCanvas = document.createElement("canvas");
+  signatureCanvas.id = "signatureCanvas";
+  signatureCanvas.height = 200;
+  signatureCanvas.width = 300;
+  var signatureCtx = signatureCanvas.getContext("2d");
+
+  clearCanvas(signatureCanvas, signatureCtx);
+  signatureCtx.lineWidth = 1;
+  signatureCtx.strokeStyle = "black";
+  lastPoint = { x: 0, y: 0 };
+  isDown = false;
+
+  for (var i = 0; i < m_penData.length; i++) {
+    processPoint(m_penData[i], signatureCanvas, signatureCtx);
+  }
+  console.log(signatureCanvas.toDataURL("image/jpeg"));
 }
 
 function generateImage() {
