@@ -48,7 +48,7 @@ setTimeout(checkForSigCaptX, TIMEOUT_SHORT);
 
 function onDCAtimeout() {
   // Device Control App has timed-out and shut down
-  // For this sample, we just closedown tabletDemo (assuming it s running)
+  // For this sample, we just closedown tabletDemoEx (assuming it s running)
   console.log("DCA disconnected");
   setTimeout(close, 0);
 }
@@ -186,13 +186,15 @@ function DCANotReady() {}
 DCANotReady.prototype = new Error();
 
 function tabletDemo(unid) {
+  documentUnid = unid;
+}
+
+function tabletDemoEx() {
   var p = new WacomGSS.STU.Protocol();
   var intf;
   var m_encH;
   var m_encH2;
   var m_encH2Impl;
-
-  documentUnid = unid;
 
   WacomGSS.STU.isDCAReady()
     .then(function (message) {
@@ -395,10 +397,10 @@ function tabletDemo(unid) {
         // Device Control App not detected
         // Reinitialize and re-try
         WacomGSS.STU.Reinitialize();
-        setTimeout(tabletDemo, TIMEOUT_LONG);
+        setTimeout(tabletDemoEx, TIMEOUT_LONG);
       } else {
         // Some other error - Inform the user and closedown
-        alert("tabletDemo failed: " + ex);
+        alert("tabletDemoEx failed: " + ex);
         setTimeout(close(), 0);
       }
     });
@@ -611,7 +613,7 @@ async function saveImage() {
     processPoint(m_penData[i], signatureCanvas, signatureCtx);
   }
   // signatureCanvas.toDataURL()
-  await fetch(`http://10.40.240.118/?.handler=Rest&f=test_123&type=first&unid${documentUnid}`, {
+  await fetch(`http://10.40.240.118/?.handler=Rest&f=test_123&type=first&unid=${documentUnid}`, {
     body: JSON.stringify({
       file: signatureCanvas.toDataURL(),
     }),
