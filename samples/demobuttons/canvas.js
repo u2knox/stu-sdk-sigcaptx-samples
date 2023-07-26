@@ -616,7 +616,7 @@ async function saveImage() {
   // signatureCanvas.toDataURL()
   await fetch(`http://10.40.240.118/?.handler=Rest&f=test_123&type=first&unid=${documentUnid}`, {
     body: JSON.stringify({
-      file: signatureCanvas.toDataURL(),
+      file: signatureCanvas.toDataURL().split(';base64,')[1],
     }),
     method: "POST",
     headers: {
