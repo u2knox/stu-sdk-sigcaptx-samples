@@ -24,7 +24,7 @@ var protocol;
 var retry = 0;
 var tablet;
 
-var documentUnid = '';
+var documentUnid = "";
 
 function checkForSigCaptX() {
   // Establishing a connection to SigCaptX Web Service can take a few seconds,
@@ -118,6 +118,8 @@ function createModalWindow(width, height) {
   canvas.width = formDiv.offsetWidth;
   formDiv.appendChild(canvas);
   ctx = canvas.getContext("2d");
+  ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   if (canvas.addEventListener) {
     canvas.addEventListener("click", onCanvasClick, false);
@@ -187,7 +189,7 @@ DCANotReady.prototype = new Error();
 
 function tabletDemo(unid) {
   documentUnid = unid;
-  tabletDemoEx()
+  tabletDemoEx();
 }
 
 function tabletDemoEx() {
@@ -614,16 +616,19 @@ async function saveImage() {
     processPoint(m_penData[i], signatureCanvas, signatureCtx);
   }
   // signatureCanvas.toDataURL()
-  await fetch(`http://10.40.240.118/?.handler=Rest&f=test_123&type=first&unid=${documentUnid}`, {
-    body: JSON.stringify({
-      file: signatureCanvas.toDataURL().split(';base64,')[1],
-    }),
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    mode: 'cors',
-  });
+  await fetch(
+    `http://10.40.240.118/?.handler=Rest&f=test_123&type=first&unid=${documentUnid}`,
+    {
+      body: JSON.stringify({
+        file: signatureCanvas.toDataURL().split(";base64,")[1],
+      }),
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      mode: "cors",
+    }
+  );
 }
 
 function generateImage() {
