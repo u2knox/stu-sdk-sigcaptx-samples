@@ -46,9 +46,9 @@
     <script src="q.js" charset="UTF-8"></script>
     <script src="wgssStuSdk.js" charset="UTF-8"></script>
     <script>
-      var BTN_TEXT_CANCEL = "Cancel";
-      var BTN_TEXT_CLEAR = "Clear";
-      var BTN_TEXT_OK = "OK";
+      var BTN_TEXT_CANCEL = "ЗАКРЫТЬ";
+      var BTN_TEXT_CLEAR = "ОЧИСТИТЬ";
+      var BTN_TEXT_OK = "ОТПРАВИТЬ";
       var MAXRETRIES = 20;
       var TIMEOUT_LONG = 1000;
       var TIMEOUT_SHORT = 500;
@@ -514,7 +514,7 @@
         ctx.beginPath();
         ctx.lineWidth = 1;
         ctx.strokeStyle = "black";
-        ctx.font = "30px Arial";
+        ctx.font = "16px Arial";
 
         // Draw the buttons
         for (var i = 0; i < m_btns.length; ++i) {
@@ -542,12 +542,12 @@
               ctx.measureText(m_btns[i].Text).width / 2);
           var yOffset;
           if (m_usbDevices[0].idProduct == WacomGSS.STU.ProductId.ProductId_300)
-            yOffset = 28;
+            yOffset = 24;
           else if (
             m_usbDevices[0].idProduct == WacomGSS.STU.ProductId.ProductId_430
           )
-            yOffset = 26;
-          else yOffset = 40;
+            yOffset = 22;
+          else yOffset = 36;
           ctx.fillText(m_btns[i].Text, xPos, m_btns[i].Bounds.y + yOffset);
         }
         ctx.stroke();

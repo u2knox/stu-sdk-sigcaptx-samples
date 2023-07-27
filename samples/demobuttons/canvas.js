@@ -461,7 +461,7 @@ function drawButtons() {
   ctx.beginPath();
   ctx.lineWidth = 1;
   ctx.strokeStyle = "black";
-  ctx.font = "30px Arial";
+  ctx.font = "16px Arial";
 
   // Draw the buttons
   for (var i = 0; i < m_btns.length; ++i) {
@@ -488,10 +488,10 @@ function drawButtons() {
       (m_btns[i].Bounds.width / 2 - ctx.measureText(m_btns[i].Text).width / 2);
     var yOffset;
     if (m_usbDevices[0].idProduct == WacomGSS.STU.ProductId.ProductId_300)
-      yOffset = 28;
+      yOffset = 24;
     else if (m_usbDevices[0].idProduct == WacomGSS.STU.ProductId.ProductId_430)
-      yOffset = 26;
-    else yOffset = 40;
+      yOffset = 22;
+    else yOffset = 36;
     ctx.fillText(m_btns[i].Text, xPos, m_btns[i].Bounds.y + yOffset);
   }
   ctx.stroke();
