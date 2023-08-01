@@ -25,6 +25,7 @@ var retry = 0;
 var tablet;
 
 var documentUnid = "";
+var useType = "";
 
 function checkForSigCaptX() {
   // Establishing a connection to SigCaptX Web Service can take a few seconds,
@@ -187,7 +188,8 @@ window.addEventListener("beforeunload", function (e) {
 function DCANotReady() {}
 DCANotReady.prototype = new Error();
 
-function tabletDemo(unid) {
+function tabletDemo(type, unid) {
+  useType = type;
   documentUnid = unid;
   tabletDemoEx();
 }
@@ -617,7 +619,7 @@ async function saveImage() {
   }
   // signatureCanvas.toDataURL()
   await fetch(
-    `http://10.40.240.118/?.handler=Rest&f=test_123&type=first&unid=${documentUnid}`,
+    `http://10.40.240.118/?.handler=Rest&f=test_123&type=${useType}&unid=${documentUnid}`,
     {
       body: JSON.stringify({
         file: signatureCanvas.toDataURL().split(";base64,")[1],
