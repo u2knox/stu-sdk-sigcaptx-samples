@@ -619,7 +619,7 @@ async function saveImage() {
   }
   // signatureCanvas.toDataURL()
   await fetch(
-    `http://10.40.240.118/?.handler=Rest&f=dign&type=${useType}&unid=${documentUnid}`,
+    `http://10.40.240.118/?.handler=Rest&f=sign&type=${useType}&unid=${documentUnid}`,
     {
       body: JSON.stringify({
         file: signatureCanvas.toDataURL().split(";base64,")[1],
