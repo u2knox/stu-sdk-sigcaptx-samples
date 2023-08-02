@@ -631,6 +631,7 @@ async function saveImage() {
       mode: "cors",
     }
   );
+  location.reload();
 }
 
 function generateImage() {
