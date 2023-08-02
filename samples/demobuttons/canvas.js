@@ -177,12 +177,14 @@ function disconnect() {
   return deferred.promise;
 }
 
-window.addEventListener("beforeunload", function (e) {
+const blockReloadFunc = function (e) {
   var confirmationMessage = "";
   WacomGSS.STU.close();
   (e || window.event).returnValue = confirmationMessage; // Gecko + IE
   return confirmationMessage; // Webkit, Safari, Chrome
-});
+};
+
+window.addEventListener("beforeunload", blockReloadFunc);
 
 // Error-derived object for Device Control App not ready exception
 function DCANotReady() {}
@@ -631,6 +633,7 @@ async function saveImage() {
       mode: "cors",
     }
   );
+  window.removeEventListener("beforeunload", blockReloadFunc);
   location.reload();
 }
 
