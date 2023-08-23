@@ -24,6 +24,7 @@ var protocol;
 var retry = 0;
 var tablet;
 
+var mainUrl = "";
 var documentUnid = "";
 var useType = "";
 
@@ -190,9 +191,10 @@ window.addEventListener("beforeunload", blockReloadFunc);
 function DCANotReady() {}
 DCANotReady.prototype = new Error();
 
-function tabletDemo(type, unid) {
+function tabletDemo(main_Url, type, unid) {
   useType = type;
   documentUnid = unid;
+  mainUrl = main_Url;
   tabletDemoEx();
 }
 
@@ -621,7 +623,7 @@ async function saveImage() {
   }
   // signatureCanvas.toDataURL()
   await fetch(
-    `http://10.40.240.118/?.handler=Rest&f=sign&type=${useType}&unid=${documentUnid}`,
+    `${mainUrl}/?.handler=Rest&f=sign&type=${useType}&unid=${documentUnid}`,
     {
       body: JSON.stringify({
         file: signatureCanvas.toDataURL().split(";base64,")[1],
