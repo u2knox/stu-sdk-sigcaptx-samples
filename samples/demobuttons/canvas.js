@@ -192,6 +192,9 @@ function DCANotReady() {}
 DCANotReady.prototype = new Error();
 
 function tabletDemo(main_Url, type, unid, test) {
+  useType = type;
+  documentUnid = unid;
+  mainUrl = main_Url;
   if (test) {
     fetch(
       `${mainUrl}/?.handler=Rest&f=sign&type=${useType}&unid=${documentUnid}`,
@@ -208,9 +211,6 @@ function tabletDemo(main_Url, type, unid, test) {
     );
     return;
   };
-  useType = type;
-  documentUnid = unid;
-  mainUrl = main_Url;
   tabletDemoEx();
 }
 
