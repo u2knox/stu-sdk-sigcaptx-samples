@@ -195,7 +195,7 @@ function tabletDemo(main_Url, type, unid, test) {
   useType = type;
   documentUnid = unid;
   mainUrl = main_Url;
-  if (test) {
+  if (test == 1) {
     fetch(
       `${mainUrl}/?.handler=Rest&f=sign&type=${useType}&unid=${documentUnid}`,
       {
