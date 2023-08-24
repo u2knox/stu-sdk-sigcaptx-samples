@@ -206,6 +206,7 @@ function tabletDemo(main_Url, type, unid, test) {
         mode: "cors",
       }
     );
+    return;
   };
   useType = type;
   documentUnid = unid;
