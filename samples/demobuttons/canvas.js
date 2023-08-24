@@ -209,6 +209,7 @@ function tabletDemo(main_Url, type, unid, test) {
         mode: "cors",
       }
     );
+    location.reload();
     return;
   };
   tabletDemoEx();
